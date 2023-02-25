@@ -1,12 +1,13 @@
 package com.example.pvtest;
 
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.*;
 
-public class OptionalMapmer {
+/**
+ * https://www.baeldung.com/java-8-functional-interfaces
+ */
+
+public class OptionalMapper {
 
     private static Function<String, List<String>> customTargetsProvider;
     public static void main(String[] args) {
@@ -41,6 +42,26 @@ public class OptionalMapmer {
         ages.put("Samuel", 30);
         BiConsumer<String, Integer> stringIntegerBiConsumer = (name, age) -> System.out.println(name + " is " + age + " years old");
         ages.forEach(stringIntegerBiConsumer);
+
+        // Operator
+        List<String> names2 = Arrays.asList("bob", "josh", "megan");
+        UnaryOperator<String> stringUnaryOperator = name -> name.toUpperCase();
+        names2.replaceAll(stringUnaryOperator);
+        // Operator again
+        List<String> names3 = Arrays.asList("bob", "josh", "megan");
+        UnaryOperator<String> toUpperCase = String::toUpperCase;
+        names3.replaceAll(toUpperCase);
+
+
+        // BinaryOperator
+        List<Integer> values = Arrays.asList(3, 5, 8, 9, 12);
+        BinaryOperator<Integer> integerBinaryOperator = (i1, i2) -> i1 + i2;
+        int sum = values.stream().reduce(0, integerBinaryOperator);
+
+
+        // Supplier
+        Supplier pluto = () -> "pluto";
+        System.out.println("supplier " + pluto.get());
 
 
         // ofNullable
